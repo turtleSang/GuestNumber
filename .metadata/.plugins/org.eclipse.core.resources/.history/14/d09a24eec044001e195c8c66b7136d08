@@ -1,0 +1,35 @@
+package DoanSoRepository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.cj.Query;
+
+import DoanSoConfigs.MySQLConnection;
+import DoanSoModel.Player;
+
+public class PlayerRepository {
+	public void getUser(String playername) {
+		 Connection conn = MySQLConnection.CreateConnection();
+		 String query = "select * from player where playername = \\\"?\\\";";
+		 PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, playername);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Player player = new Player();
+				player.setPlayername(rs.getString("playername"));
+				player.setTurn(rs.getInt("turn"));
+				player.setCreatedAt(rs.getString("createdAt"));
+				player.setUpdatedAt(rs.getString("updatedAt"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+	}
+}

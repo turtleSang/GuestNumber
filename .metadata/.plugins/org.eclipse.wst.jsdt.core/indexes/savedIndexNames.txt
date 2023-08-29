@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+D:\Fullstack\Java\GameDoanSo\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1894463860.index
+1301713182.index
+772706402.index
+635005136.index
+3202223597.index
+2363251492.index

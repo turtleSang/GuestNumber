@@ -1,0 +1,6 @@
+package DoanSoRespone;
+
+public class ResponResult {
+	private boolean isSuccess;
+	private String nofication;	
+}

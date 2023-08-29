@@ -1,0 +1,84 @@
+html, body{
+    font-family: 'Montserrat', sans-serif;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#main{
+    background-color: aqua;
+    min-height: 700px;
+    height: 100vh;
+    padding: 10% 15%;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 400px;
+    align-items: center;
+}
+.content h3{
+    font-size: 50px;
+    color: rgb(105, 105, 5);
+}
+
+.content form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content form input{
+    display: block;
+    width: 90%;
+    font-size: 40px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    transition: 0.5s;
+}
+.content form input:focus-visible{
+    outline: none;
+    border: 1px solid yellow;
+    box-shadow: 0px 0px 7px 2px rgb(105, 105, 5);
+}
+.content form button{
+    display: block;
+    margin-top: 30px;
+    width: 200px;
+    padding: 30px 20px;
+    border-radius: 3%;
+    cursor: pointer;
+    color: rgb(105, 105, 5);
+    font-size: 30px;
+    border: none;
+    background-color: yellow;
+    transition: 0.5s;
+}
+.content form button:hover{
+    background-color: rgb(105, 105, 5);
+    color: yellow;
+}
+.content form button i{
+    text-align: center;
+    display: block;
+}
+.group-btn{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.group-return{
+    display: none;
+}
+#back a{
+    text-decoration: none;
+    color: rgb(105, 105, 5) ;
+}
+.group-return #back:hover a{
+    color: yellow;
+}

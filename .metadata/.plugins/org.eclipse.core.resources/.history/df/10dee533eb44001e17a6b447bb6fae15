@@ -1,0 +1,40 @@
+package DoanSoController;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DoanSoModel.Player;
+import DoanSoRepository.PlayerRepository;
+import DoanSoServices.PlayerService;
+@WebServlet(name = "index", urlPatterns = {"/login"})
+public class indexController extends HttpServlet {
+	private PlayerRepository playerRepository = new PlayerRepository();
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		req.setCharacterEncoding("UTF-8");
+		String username = req.getParameter("username");
+		ArrayList<Player> listPlayer = playerRepository.getUser(username);
+		if (listPlayer.size() > 0) {
+			Player player = listPlayer.get(0);
+			req.setAttribute("player", player);
+			req.getRequestDispatcher("/start").forward(req, resp);
+		}else {
+			PlayerService playerService = new PlayerService();
+			boolean isCreated = playerService.addUers(username);
+			if (isCreated) {
+				listPlayer = playerRepository.getUser(username);
+				Player player = listPlayer.get(0);
+				req.setAttribute("player", player);
+				req.getRequestDispatcher("/start").forward(req, resp);
+			}
+		}		
+		
+	}
+}

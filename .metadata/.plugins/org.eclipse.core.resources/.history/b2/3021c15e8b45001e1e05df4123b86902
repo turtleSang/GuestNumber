@@ -1,0 +1,8 @@
+package DoanSoController;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+@WebServlet(name = "Ranking", urlPatterns = "/rank")
+public class RankingController extends HttpServlet {
+
+}

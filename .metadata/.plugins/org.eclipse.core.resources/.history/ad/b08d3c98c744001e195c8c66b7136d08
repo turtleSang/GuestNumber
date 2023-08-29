@@ -1,0 +1,8 @@
+package DoanSoServices;
+
+public class PlayerService {
+	private PlayerRepository playerRepository = new DoanSoRepository.PlayerRepository();
+	public static boolean addUers() {
+		
+	}
+}

@@ -1,0 +1,75 @@
+package DoanSoController;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import DoanSoRespone.ResponResult;
+import GameDoanSoCommon.SerectNumber;
+
+@WebServlet(name = "Play", urlPatterns = { "/start", "/guest" })
+public class PlayController extends HttpServlet {
+	Gson gson = new Gson();
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String url = req.getRequestURI();
+		SerectNumber serectNumber = new SerectNumber();
+		switch (url) {
+		case "/GameDoanSo/start":
+			System.out.println(serectNumber.getNumber_serect());
+			req.getRequestDispatcher("./playgame.jsp").forward(req, resp);
+			break;
+		case "//GameDoanSo/guest":
+			System.out.println(serectNumber.getNumber_serect());
+			int number = serectNumber.getNumber_serect();
+			resp.setCharacterEncoding("UTF8");
+			resp.setContentType("application/json");
+			GuestNumber(req, resp, number);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void GuestNumber(HttpServletRequest req, HttpServletResponse resp, int number) throws IOException {
+		try {
+			int numberGuest = Integer.parseInt(req.getParameter("numberGuest"));
+			if (numberGuest == number) {
+				ResponResult responResult = new ResponResult(true, "Bạn đã đoán đúng");
+				String resultJsonString = this.gson.toJson(responResult);
+				PrintWriter out = resp.getWriter();			
+				out.print(resultJsonString);
+				out.flush();
+			} else if (numberGuest < number) {
+				ResponResult responResult = new ResponResult(false, "Vui lòng nhập số lớn hơn");
+				String resultJsonString = this.gson.toJson(responResult);
+				PrintWriter out = resp.getWriter();
+				out.print(resultJsonString);
+				out.flush();
+			} else {
+				ResponResult responResult = new ResponResult(false, "Vui lòng nhập số nhỏ hơn");
+				String resultJsonString = this.gson.toJson(responResult);
+				PrintWriter out = resp.getWriter();
+				out.print(resultJsonString);
+				out.flush();
+			}
+		} catch (Exception e) {
+			System.out.println(123);
+			ResponResult responResult = new ResponResult(false, "Vui lòng nhập số Nguyên Dương");
+			String resultJsonString = this.gson.toJson(responResult);
+			PrintWriter out = resp.getWriter();
+			out.print(resultJsonString);
+			out.flush();
+		}
+		
+
+	}
+}

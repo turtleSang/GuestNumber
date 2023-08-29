@@ -1,0 +1,14 @@
+package DoanSoRepository;
+
+import java.sql.Connection;
+
+import com.mysql.cj.Query;
+
+import DoanSoConfigs.MySQLConnection;
+
+public class PlayerRepository {
+	public void getUser(String playername) {
+		 Connection conn = MySQLConnection.CreateConnection();
+		 String query = "select * from player where playername = \\\"sangnt7\\\"";
+	}
+}

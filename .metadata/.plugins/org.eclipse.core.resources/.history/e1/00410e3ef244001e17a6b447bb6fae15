@@ -1,0 +1,14 @@
+package GameDoanSoCommon;
+
+public class SerectNumber {
+	private int number_serect;
+	
+	public int getNumber_serect() {
+		return number_serect;
+	}
+
+	public SerectNumber() {
+		this.number_serect = (int) Math.round(Math.random() * 1000);
+	}
+	
+}

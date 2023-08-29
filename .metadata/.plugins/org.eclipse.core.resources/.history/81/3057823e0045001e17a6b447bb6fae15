@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- GG font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./css/playgame.css">
+    <title>Playing game....</title>
+</head>
+
+<body>
+    <div class="content">
+        <h3>GAME ĐOÁN SỐ</h3>
+        <form>
+            <h3 id="nofi"></h3>
+            <input id="input_number" type="number" name="number" placeholder="Nhập số bạn đoán">
+            <div class="group-btn">
+                <div id="group-play" class="group-play">
+                    <button id="guest" type="button"><i class="fa-solid fa-play"></i> <span>Đoán</span></button>
+                </div>
+                <div id="group-return" class="group-return">
+                    <button id="back" type="button"><a href="./index.html"><i class="fa-solid fa-arrow-left"></i><span>Quay lại</span></a></button>
+                </div>
+            </div>
+        </form>
+        <h3 id="player_info" data-idPlayer="1">Sangnt7</h3>
+        <h2 class="turn_play">Số lần đoán <span id="turn">0</span></h2>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./JS/playgame.js"></script>
+</body>
+
+</html>

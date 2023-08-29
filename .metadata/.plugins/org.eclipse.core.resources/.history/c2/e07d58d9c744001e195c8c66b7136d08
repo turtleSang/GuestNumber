@@ -1,0 +1,10 @@
+package DoanSoServices;
+
+import DoanSoRepository.PlayerRepository;
+
+public class PlayerService {
+	private PlayerRepository playerRepository = new PlayerRepository();
+	public static boolean addUers(String username) {
+		
+	}
+}

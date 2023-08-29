@@ -1,0 +1,155 @@
+package DoanSoRepository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.mysql.cj.Query;
+
+import DoanSoConfigs.MySQLConnection;
+import DoanSoModel.Player;
+
+public class PlayerRepository {
+	public Player getUserByName(String playername) {
+		ArrayList<Player> listPlayer = new ArrayList<Player>();
+		Connection conn = MySQLConnection.CreateConnection();
+		String query = "select * from player where playername= ? ";
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, playername);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Player player = new Player();
+				player.setId(rs.getInt("id"));
+				player.setPlayername(rs.getString("playername"));
+				player.setTurn(rs.getInt("turn"));
+				player.setCreatedAt(rs.getDate("createdAt"));
+				player.setUpdatedAt(rs.getDate("updatedAt"));
+				listPlayer.add(player);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		if (listPlayer.size() > 0) {
+			return listPlayer.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	public Player getUserById(int id) {
+		Connection conn = MySQLConnection.CreateConnection();
+		ArrayList<Player> list = new ArrayList<Player>();
+		String query = "select * from player where player.id = ?;";
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Player player = new Player();
+				player.setId(rs.getInt("id"));
+				player.setPlayername(rs.getString("playername"));
+				player.setTurn(rs.getInt("turn"));
+				player.setCreatedAt(rs.getDate("createdAt"));
+				player.setUpdatedAt(rs.getDate("updatedAt"));
+				list.add(player);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		if (list.size() > 0) {
+			return list.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	public int addPlayer(String username) {
+		int isSuccess = 0;
+		Connection conn = MySQLConnection.CreateConnection();
+		String query = "insert into player(playername) values (?);";
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1, username);
+			isSuccess = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return isSuccess;
+	}
+	
+	public ArrayList<Player> getAllPlayerSortByTurn(){
+		ArrayList<Player> list = new ArrayList<Player>();
+		Connection conn = MySQLConnection.CreateConnection();
+		String query = "select * from player order by turn asc";
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Player player = new Player();
+				player.setId(rs.getInt("id"));
+				player.setPlayername(rs.getString("playername"));
+				player.setTurn(rs.getInt("turn"));
+				player.setCreatedAt(rs.getDate("createdAt"));
+				player.setUpdatedAt(rs.getDate("updatedAt"));
+				list.add(player);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public int updatePlayer(int id, int turn) {
+		int isSuccess = 0;
+		Connection conn = MySQLConnection.CreateConnection();
+		String query = "UPDATE player SET turn = ? WHERE player.id = ?; ";
+
+		try {
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, turn);
+			ps.setInt(2, id);
+			isSuccess = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isSuccess;
+
+	}
+}

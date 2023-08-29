@@ -1,0 +1,5 @@
+package DoanSoConfigs;
+
+public class MySQLConnection {
+
+}

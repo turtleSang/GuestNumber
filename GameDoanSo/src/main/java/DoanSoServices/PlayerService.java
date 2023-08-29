@@ -1,0 +1,21 @@
+package DoanSoServices;
+
+import java.util.ArrayList;
+
+import DoanSoModel.Player;
+import DoanSoRepository.PlayerRepository;
+
+public class PlayerService {
+	private static PlayerRepository playerRepository = new PlayerRepository();
+	public boolean addPlayer(String username) {
+		int a = playerRepository.addPlayer(username);
+		return a > 0 ? true: false;
+	}
+	public boolean updatePlayer(int id, int turn) {		
+		int a = playerRepository.updatePlayer(id, turn);
+		return a > 0 ? true: false;
+	}
+	public ArrayList<Player> getListPlayer() {
+		return playerRepository.getAllPlayerSortByTurn();
+	}
+}

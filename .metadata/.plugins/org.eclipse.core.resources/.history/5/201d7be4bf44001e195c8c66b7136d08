@@ -1,0 +1,11 @@
+package DoanSoRepository;
+
+import java.sql.Connection;
+
+import DoanSoConfigs.MySQLConnection;
+
+public class PlayerRepository {
+	public void getUser(String playername) {
+		 Connection conn = MySQLConnection.CreateConnection();
+	}
+}

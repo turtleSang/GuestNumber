@@ -1,0 +1,62 @@
+package DoanSoController;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import DoanSoRespone.ResponResult;
+import GameDoanSoCommon.ConstanceURL;
+
+
+@WebServlet(name = "Play", urlPatterns = { "/start", "/guest" })
+public class PlayController extends HttpServlet {
+	Gson gson = new Gson();
+	
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String url = req.getRequestURI();
+		final static int number = (int) Math.round(Math.random() * 1000);
+		switch (url) {
+		case "/GameDoanSo/start":
+			
+			req.getRequestDispatcher("./playgame.html").forward(req, resp);
+			break;
+		case "//GameDoanSo/guest":			
+			GuestNumber(req, resp, number);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void GuestNumber(HttpServletRequest req, HttpServletResponse resp, int number) throws IOException {
+		int numberGuest = Integer.parseInt(req.getParameter("numberGuest"));
+		System.out.println(number);
+		if (numberGuest == number) {
+			ResponResult responResult = new ResponResult(true, "Bạn đã đoán đúng");
+			String resultJsonString = this.gson.toJson(responResult);
+			PrintWriter out = resp.getWriter();
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
+			out.print(resultJsonString);
+			out.flush();
+		} else {
+			ResponResult responResult = new ResponResult(true, "Bạn đã sai");
+			String resultJsonString = this.gson.toJson(responResult);
+			PrintWriter out = resp.getWriter();
+			resp.setContentType("application/json");
+			resp.setCharacterEncoding("UTF-8");
+			out.print(resultJsonString);
+			out.flush();
+		}
+
+	}
+}

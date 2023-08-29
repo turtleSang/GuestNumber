@@ -1,0 +1,56 @@
+package DoanSoApi;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import DoanSoModel.Player;
+import DoanSoRespone.ResponResult;
+import DoanSoServices.PlayerService;
+@WebServlet(name ="PlayerAPI", urlPatterns = {"/player"})
+public class PlayerApi extends HttpServlet {
+	PlayerService playerService = new PlayerService();
+	Gson gson = new Gson();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		ArrayList<Player> list = playerService.getListPlayer();
+		resp.setCharacterEncoding("UTF8");
+		resp.setContentType("application/json");
+		String listPlayerJsonString = this.gson.toJson(list);
+		PrintWriter out = resp.getWriter();
+		out.print(listPlayerJsonString);
+		out.flush();
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int id = Integer.parseInt(req.getParameter("id"));
+		int turn = Integer.parseInt(req.getParameter("turn"));
+		resp.setCharacterEncoding("UTF8");
+		resp.setContentType("application/json");
+		boolean isSuccess = playerService.updatePlayer(id, turn);
+		if (isSuccess) {
+			ResponResult responseResult = new ResponResult(true, "Đã cập nhật");
+			String resultJsonString = this.gson.toJson(responseResult);
+			PrintWriter out = resp.getWriter();
+			out.print(resultJsonString);
+			out.flush();
+		} else {
+			ResponResult responseResult = new ResponResult(true, "Cập nhật thất bại");
+			String resultJsonString = this.gson.toJson(responseResult);
+			PrintWriter out = resp.getWriter();
+			out.print(resultJsonString);
+			out.flush();
+		}
+	}
+
+}

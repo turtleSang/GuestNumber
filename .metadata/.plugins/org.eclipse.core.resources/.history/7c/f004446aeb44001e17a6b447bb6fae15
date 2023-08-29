@@ -1,0 +1,7 @@
+package GameDoanSoCommon;
+
+public class ConstanceURL {
+	public static final String URL_START = "/GameDoanSo/start";
+	public static final String URL_GUEST = "/GameDoanSo/guest";
+	
+}
